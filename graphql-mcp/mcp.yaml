@@ -1,0 +1,21 @@
+transport:
+  type: streamable_http
+  address: 127.0.0.1
+  port: 5000
+operations:
+  source: local
+  paths:
+    - ./operations
+introspection:
+  execute:
+    enabled: true
+  introspect:
+    enabled: true
+  search:
+    enabled: true
+  validate:
+    enabled: true
+schema:
+  source: local
+  path: airlocksuper.graphql
+endpoint: http://127.0.0.1:4000

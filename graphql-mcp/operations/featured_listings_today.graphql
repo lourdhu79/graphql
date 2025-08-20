@@ -1,0 +1,29 @@
+# GraphQL Operation: Fetch Featured Listings for Today
+# Date: 2025-08-17
+# Description: Retrieves a curated array of listings featured on the homepage
+
+query GetFeaturedListingsForToday {
+  featuredListings {
+    id
+    title
+    description
+    photoThumbnail
+    numOfBeds
+    costPerNight
+    locationType
+    host {
+      id
+      name
+      profilePicture
+    }
+    amenities {
+      id
+      category
+      name
+    }
+    coordinates {
+      latitude
+      longitude
+    }
+  }
+}

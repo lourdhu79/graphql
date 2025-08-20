@@ -1,0 +1,7 @@
+//install the mcp server latest binary using in bash in a particular folder 
+curl -sSL https://mcp.apollo.dev/download/nix/latest | sh
+//download the GitHub graphql schema and place it in folder
+//mcp.yaml fill it
+//run the command to run the mcp server (make sure you have exe extension to binary)
+./apollo-mcp-server mcp.yaml
+

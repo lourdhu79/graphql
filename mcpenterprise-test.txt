@@ -1,0 +1,49 @@
+APOLLO_KEY=service:airlock-o8xy6r:PA8uNace_I9EYQ0tLDf4Sw \
+  rover subgraph publish airlock-o8xy6r@current \
+  --schema ./products-schema.graphql \
+  --name your-subgraph-name \
+  --routing-url http://products.prod.svc.cluster.local:4001/graphql
+  
+  
+
+  
+  
+  // publish accounts subgraph into above supergraph
+  
+  rover subgraph introspect https://rt-airlock-subgraphs-accounts.herokuapp.com/ \
+   | rover subgraph publish APOLLO_KEY=service:airlock-1:PKvoRRv9EUkYIFfwtQ75hA \
+   --name accounts \
+   --schema -  \
+   --routing-url https://rt-airlock-subgraphs-accounts.herokuapp.com/
+   
+   rover subgraph introspect https://rt-airlock-subgraphs-accounts.herokuapp.com/ | rover subgraph publish airlock-o8xy6r@current --name accounts --schema -  --routing-url https://rt-airlock-subgraphs-accounts.herokuapp.com/
+   
+   //publish listing subgraph running local  - use the ipaddress of this it works for personal
+   rover subgraph publish airlock-o8xy6r@current --name listings --schema ./src/schema.graphql --routing-url http://host.docker.internal:4001
+   
+   rover subgraph introspect http://192.168.4.192:4001/ | rover subgraph publish airlock-o8xy6r@current --name listings --schema ./src/schema.graphql --routing-url http://192.168.4.192:4001/
+   rover subgraph introspect http://192.168.4.192:4001/ 
+   // the belwo command to run the local accoutn subgraphj
+   npm install
+   npm run dev
+   
+   
+   //docker to spin up the router 
+   docker run \
+--env APOLLO_GRAPH_REF=<APOLLO_GRAPH_REF> \
+--env APOLLO_KEY=<APOLLO_KEY> \
+--env MCP_ENABLE=1 \
+--env MCP_UPLINK=1 \
+--rm -p 4000:4000 -p 5000:5000 \
+ghcr.io/apollographql/apollo-runtime:latest
+
+docker run --env APOLLO_GRAPH_REF=airlock-o8xy6r@current --env APOLLO_KEY=service:airlock-o8xy6r:PA8uNace_I9EYQ0tLDf4Sw --env MCP_ENABLE=1 --env MCP_UPLINK=1 --rm -p 4000:4000 -p 5000:5000 ghcr.io/apollographql/apollo-runtime:latest
+
+docker run --env APOLLO_GRAPH_REF=airlock-o8xy6r@current --env APOLLO_KEY=service:airlock-o8xy6r:PA8uNace_I9EYQ0tLDf4Sw --env MCP_ENABLE=1 --env MCP_UPLINK=1 --env --env MCP_INTROSPECTION=1 MCP_SERVER_HTTP_PORT=5000 --rm -p 4000:4000 -p 5000:5000 ghcr.io/apollographql/apollo-runtime:latest
+
+docker run --env APOLLO_GRAPH_REF=airlock-o8xy6r@current --env APOLLO_KEY=service:airlock-o8xy6r:PA8uNace_I9EYQ0tLDf4Sw --rm -p 4000:4000 ghcr.io/apollographql/apollo-runtime:latest
+
+docker run --env APOLLO_GRAPH_REF=airlock-o8xy6r@current --env APOLLO_KEY=service:airlock-o8xy6r:PA8uNace_I9EYQ0tLDf4Sw --env MCP_ENABLE=1 --env MCP_UPLINK=1 --env MCP_INTROSPECTION=1 --env APOLLO_MCP_TRANSPORT__TYPE=streamable_http --env APOLLO_MCP_TRANSPORT__ADDRESS=0.0.0.0 --env APOLLO_MCP_TRANSPORT__PORT=5000 --rm -p 4000:4000 -p 5000:5000 ghcr.io/apollographql/apollo-runtime:latest
+
+rover persisted-queries publish airlock-o8xy6r@current --manifest ./persisted-query-manifest.json
+

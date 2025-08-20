@@ -1,0 +1,23 @@
+in this example running router with mcp in local and testing mcp tools
+
+
+graphql mcp-key user:gh.06cae751-598d-46a6-93d1-940128121b1b:zGlC2jxTDiuHmH_rUdqHHQ
+
+commands to run
+
+//only to run the subgraph to local server
+
+rover dev --supergraph-config ./supergraph.yaml
+
+//below command to run with mcp 
+
+rover dev --supergraph-config ./supergraph.yaml --mcp ./mcp-config.yaml
+
+// to know process runnin and kill those task
+On Windows: Open Command Prompt as an administrator and run:
+netstat -ano | findstr :4000
+This will show you the Process ID (PID) of the process using that port. Then, use the Task Manager or the taskkill command to terminate it:
+taskkill /PID <PID> /F
+
+//to run the inspector in new command prompt
+npx @modelcontextprotocol/inspector
